@@ -64,6 +64,8 @@ namespace AuthorizeExample.Models
 
     public class RegisterViewModel
     {
+        public int? ID { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
@@ -92,6 +94,10 @@ namespace AuthorizeExample.Models
         [Required]
         [Display(Name ="Phone #")]
         public string PhoneNumber { get; set; }
+
+        public string BloodType { get; set; }
+
+
     }
 
     public class ResetPasswordViewModel

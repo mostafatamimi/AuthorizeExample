@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AuthorizeExample.Models;
+using Microsoft.AspNet.Identity;
 
 namespace AuthorizeExample.Controllers
 {
@@ -13,9 +14,21 @@ namespace AuthorizeExample.Controllers
 
         public ActionResult Index()
         {
-                
-            var LoginID = User.Identity.Name;
-            ViewBag.ID = LoginID;
+
+            //var LoginID = User.Identity.Name;
+            //ViewBag.ID = LoginID;
+
+            var myId = User.Identity.GetUserId();
+            
+
+            var myDoctor = db.Doctors.Where(x => x.DoctorID == myId).FirstOrDefault();
+
+            if(myDoctor!=null)
+            {
+                ViewBag.FullName = myDoctor.FirstName + " " + myDoctor.LastName;
+                ViewBag.PhoneNumber = myDoctor.PhoneNumber;
+            }
+
             return View();
         }
 

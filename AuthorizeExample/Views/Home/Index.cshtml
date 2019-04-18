@@ -3,7 +3,19 @@
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET @ViewBag.ID</h1>
+
+    @if (!string.IsNullOrWhiteSpace(ViewBag.FullName))
+    {
+        <h1>Welcome @ViewBag.FullName </h1>
+        <h1>Phone:  @ViewBag.PhoneNumber </h1>
+    }
+
+        <ul class="nav navbar-nav navbar-right">
+            <li>@Html.ActionLink("Register As Doctor", "Register", "Account", new { id = 1 })</li>
+            <li>@Html.ActionLink("Register As Doctor", "Register", "Account", routeValues: null, htmlAttributes: new { id = 1 })</li>
+            <li>@Html.ActionLink("Register As Patient", "Register", "Account", routeValues: 2, htmlAttributes: new { id = 2 })</li>
+        </ul>
+
     <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
     <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
 </div>

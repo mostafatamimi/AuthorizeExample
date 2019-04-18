@@ -137,9 +137,13 @@ namespace AuthorizeExample.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
-        public ActionResult Register()
+        public ActionResult Register(int? id)
         {
-            return View();
+            RegisterViewModel model = new RegisterViewModel()
+            {
+                ID = id
+            };
+            return View(model);
         }
 
         //
@@ -158,15 +162,31 @@ namespace AuthorizeExample.Controllers
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
 
-                    Doctors NewDoctor = new Doctors()
+                    if (model.ID == 1)
                     {
-                        DoctorID = user.Id,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        PhoneNumber = model.PhoneNumber
-                    };
+                        Doctors NewDoctor = new Doctors()
+                        {
+                            DoctorID = user.Id,
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            PhoneNumber = model.PhoneNumber
+                        };
+                        db.Doctors.Add(NewDoctor);
+                    }
+                    else
+                    {
+                        Patient NewPatient = new Patient()
+                        {
+                            PatientID = user.Id,
+                            FirstName = model.FirstName,
+                            LastName = model.LastName,
+                            PhoneNumber = model.PhoneNumber,
+                            BloodType = model.BloodType
+                        };
+                        db.Patients.Add(NewPatient);
+                    }
 
-                    db.Doctors.Add(NewDoctor);
+
                     db.SaveChanges();
 
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771

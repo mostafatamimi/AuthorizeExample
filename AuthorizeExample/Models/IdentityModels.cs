@@ -21,6 +21,7 @@ namespace AuthorizeExample.Models
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Doctors> Doctors { get; set; }
+        public DbSet<Patient> Patients { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
